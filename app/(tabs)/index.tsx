@@ -43,36 +43,38 @@ export default function TimerScreen() {
         <Text style={styles.title}>Pomodoro</Text>
       </View>
 
-      <ModeSelector currentMode={mode} onChangeMode={setMode} />
+      <View style={styles.content}>
+        <ModeSelector currentMode={mode} onChangeMode={setMode} />
 
-      <View style={styles.timerContainer}>
-        <CircularProgress
-          progress={progress}
-          size={width * 0.8}
-          strokeWidth={15}
-          color={progressColor}
-        >
-          <View style={styles.timeWrapper}>
-             <Text style={styles.timeText}>{formatTime(timer)}</Text>
-             <Text style={styles.modeText}>
-               {mode === 'focus' ? 'Focus' : mode === 'shortBreak' ? 'Short Break' : 'Long Break'}
-             </Text>
-          </View>
-        </CircularProgress>
+        <View style={styles.timerContainer}>
+          <CircularProgress
+            progress={progress}
+            size={width * 0.7}
+            strokeWidth={12}
+            color={progressColor}
+          >
+            <View style={styles.timeWrapper}>
+               <Text style={styles.timeText}>{formatTime(timer)}</Text>
+               <Text style={styles.modeText}>
+                 {mode === 'focus' ? 'Focus' : mode === 'shortBreak' ? 'Short Break' : 'Long Break'}
+               </Text>
+            </View>
+          </CircularProgress>
+        </View>
+
+        <TagSelector 
+          selectedTag={selectedTag} 
+          onSelectTag={setSelectedTag} 
+          disabled={isActive}
+        />
+
+        <TimerControls
+          isActive={isActive}
+          onStart={startTimer}
+          onPause={pauseTimer}
+          onReset={resetTimer}
+        />
       </View>
-
-      <TagSelector 
-        selectedTag={selectedTag} 
-        onSelectTag={setSelectedTag} 
-        disabled={isActive}
-      />
-
-      <TimerControls
-        isActive={isActive}
-        onStart={startTimer}
-        onPause={pauseTimer}
-        onReset={resetTimer}
-      />
     </SafeAreaView>
   );
 }
@@ -81,11 +83,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    alignItems: 'center',
-    paddingTop: 20,
   },
   header: {
-    marginBottom: 20,
+    paddingTop: 0,
+    alignItems: 'center',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 20,
   },
   title: {
     fontSize: 24,
@@ -93,15 +100,16 @@ const styles = StyleSheet.create({
     color: Colors.textPrimary,
   },
   timerContainer: {
-    marginVertical: 30,
+    marginVertical: 15,
     alignItems: 'center',
     justifyContent: 'center',
   },
   timeWrapper: {
     alignItems: 'center',
+    justifyContent: 'center',
   },
   timeText: {
-    fontSize: 64,
+    fontSize: 48,
     fontWeight: '200',
     color: Colors.textPrimary,
     fontVariant: ['tabular-nums'],

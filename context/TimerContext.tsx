@@ -50,9 +50,9 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Keep awake when timer is running
   useEffect(() => {
     if (isActive) {
-      activateKeepAwakeAsync();
+      activateKeepAwakeAsync().catch(() => {});
     } else {
-      deactivateKeepAwake();
+      deactivateKeepAwake().catch(() => {});
     }
   }, [isActive]);
 

@@ -66,7 +66,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
           origin={`${size / 2}, ${size / 2}`}
         />
       </Svg>
-      <View style={StyleSheet.absoluteFillObject}>
+      <View style={[StyleSheet.absoluteFillObject, { alignItems: 'center', justifyContent: 'center' }]}>
          {children}
       </View>
     </View>
